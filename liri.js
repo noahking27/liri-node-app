@@ -10,14 +10,27 @@ var inquirer = require('inquirer');
 var input = process.argv[2];
 var inputTwo = process.argv[3];
 
+var client = new Twitter({
+  consumer_key: 'FVYgOmPOsJw65PqVjwYHYF4td',
+  consumer_secret: 'o6dBjqowHV09TqFo2U2bBBCm4Q0ijbXvk9QYdAsOvGHqT6wK9S',
+  access_token_key: '1330407073-dCe8D9KrZgLZzwbk10wrl3k2S5wUv0BCvRKDM7L',
+  access_token_secret: 'WKaMbf2QqwZcNb3G8LnoLOyTe4ike96c2HUARQYPEDmVD'
+});
+
 
 if (input === "my-tweets") {
+	var params = {screen_name: 'NoahKing15'};
+client.get('statuses/user_timeline', params, function(error, tweets, response) {
+  if (!error) {
+    console.log(tweets);
+  }
+});
 	console.log("it grabbed my tweets");
 
 }
 
 if (input === "spotify-this-song"){
-
+//Runs the spotify search
 spotify.search({ type: 'track', query: inputTwo }, function(err, data) {
     if ( err ) {
         console.log('Error occurred: ' + err);
