@@ -23,11 +23,15 @@ if (input === "my-tweets") {
 	var params = {screen_name: 'NoahKing15'};
 client.get('statuses/user_timeline', params, function(error, tweets, response) {
   if (!error) {
-     console.log('Tweets ' + JSON.stringify(response, null, 2));
-    console.log("******** " + tweets[0].text);
+     //Use this to view the whole JSON object
+     // console.log('Tweets ' + JSON.stringify(response, null, 2));
+     for (i = 0; i < tweets.length; i++){
+     	console.log("Tweets: " + tweets[i].text);
+     }
+
+    
   }
 });
-	console.log("it grabbed my tweets");
 
 }
 
