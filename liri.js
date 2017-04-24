@@ -10,6 +10,7 @@ var inquirer = require('inquirer');
 var input = process.argv[2];
 var inputTwo = process.argv[3];
 
+//Twitter if statement works with the below var client. Without it, it's not working.
 var client = new Twitter({
   consumer_key: 'FVYgOmPOsJw65PqVjwYHYF4td',
   consumer_secret: 'o6dBjqowHV09TqFo2U2bBBCm4Q0ijbXvk9QYdAsOvGHqT6wK9S',
@@ -22,7 +23,8 @@ if (input === "my-tweets") {
 	var params = {screen_name: 'NoahKing15'};
 client.get('statuses/user_timeline', params, function(error, tweets, response) {
   if (!error) {
-    console.log(tweets);
+     console.log('Tweets ' + JSON.stringify(response, null, 2));
+    console.log("******** " + tweets[0].text);
   }
 });
 	console.log("it grabbed my tweets");
@@ -42,37 +44,27 @@ spotify.search({ type: 'track', query: inputTwo }, function(err, data) {
 });
 }
 
+if (input === "movie-this") {
+	request('http://www.omdbapi.com/?s=' + inputTwo + '&r=json' , function (error, response, body) {
+  
 
+  console.log('error:', error); // Print the error if one occurred 
+  console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received 
+  console.log('Title: ' + JSON.parse(body).Search[0].Title); 
+  console.log('Year: ' + JSON.parse(body).Search[0].Year);
+  console.log('Rating: ' + JSON.parse(body));
 
+});
+}
 
+if (input === "do-what-it-says") {
+	fs.readFile('random.txt', 'utf8', (err, data) => {
+  if (err) throw err;
+  console.log(data);
+  
 
-//Grabbing user input for search
-// inquirer.prompt([
-
-// {
-// 	type: "list",
-// 	message: "What would you like to do?",
-// 	choices: ["My tweets", "Spotify this song", "Movie this", "Do what it says"],
-// 	name: "first"
-// },
-
-// {
-// 	type: "input",
-// 	message: "Type in song name",
-// 	name: "spotify"
-// },
-
-// {
-// 	type: "confirm",
-// 	message: "Are you sure?",
-// 	name: "confirm",
-// 	default: true
-// }
-
-// 	]).then(function(user){
-
-// 	});
-
+});
+}
 
 
 
